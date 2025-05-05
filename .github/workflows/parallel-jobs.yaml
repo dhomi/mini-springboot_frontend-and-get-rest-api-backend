@@ -1,0 +1,50 @@
+name: CI om API parallel te runnen en te testen
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  build-and-run-api:
+    runs-on: ubuntu-latest
+    outputs:
+      api-url: ${{ steps.set-url.outputs.api-url }}
+    steps:
+      - name: Haal de code op
+        uses: actions/checkout@v2
+
+      - name: Stel Java in
+        uses: actions/setup-java@v3
+        with:
+          java-version: '21'
+          distribution: 'adopt'
+
+      - name: Bouw en start de Spring Boot-app
+        run: |
+          mvn clean package
+          nohup java -jar target/*.jar &
+
+      - name: Wacht tot de API beschikbaar is
+        run: |
+          echo "Wachten op de API..."
+          for i in {1..30}; do
+            curl -s http://localhost:8080/actuator/health && break
+            echo "Nog steeds aan het wachten..."
+            sleep 3
+          done
+
+      - name: Stel de API-URL in als output
+        id: set-url
+        run: echo "::set-output name=api-url::http://localhost:8080"
+
+  run-api-tests:
+    runs-on: ubuntu-latest
+    needs: build-and-run-api
+    steps:
+      - name: Haal de tests op
+        uses: actions/checkout@v2
+
+      - name: Voer API-tests uit
+        run: |
+          # Vervang dit door je echte testcommando
+          mvn test -Dapi.base.url=http://localhost:8080
