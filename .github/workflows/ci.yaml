@@ -21,9 +21,19 @@ jobs:
       uses: actions/setup-java@v3
       with:
         java-version: '21'
+        distribution: 'adopt'
+        java-package: 'jdk'
+        check-latest: false
+        server-id: github
+        server-username: ${{ secrets.GITHUB_ACTOR }}
+        server-password: ${{ secrets.GITHUB_TOKEN }}
+        overwrite-settings: true
+
 
     - name: Bouw het met Maven
       run: mvn clean package
+      # run: mvn -B package --file pom.xml
+
 
     - name: Run tests...al is het void!
       run: mvn test
