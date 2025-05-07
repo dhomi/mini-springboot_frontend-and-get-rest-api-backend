@@ -6,7 +6,7 @@ Voorwaarde is de JAVA versie 21 of hoger
 haal de repo op, en in terminal run de app: ```./mvnw spring-boot:run```
 
 Een andere optie is om een JAR van te maken door: ```./mvnw clean package```
-De JAR file is dan in de target map. Uitvoeren door: ```java -jar beni-0.0.1-SNAPSHOT.jar```
+De JAR file is dan in de target map. Uitvoeren door: ```java -jar target/beni-0.0.1-SNAPSHOT.jar```
 
 ## Frontend
 Ga naar http://localhost:8080
