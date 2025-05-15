@@ -61,7 +61,60 @@
 					<release>21</release>
 				</configuration>
 			</plugin>
+
+    <plugin>
+      <artifactId>maven-antrun-plugin</artifactId>
+      <version>3.0.0</version>
+      <executions>
+        <execution>
+          <id>custom-greeting</id>
+          <phase>package</phase> <!-- Or 'verify' if you don't install -->
+          <goals>
+            <goal>run</goal>
+          </goals>
+          <configuration>
+            <target>
+              <echo>
+                <![CDATA[
+============================================================
+✅ Klein springboot appje met frontend en get rest api backend!
+------------------------------------------------------------
+	                  ( o o )
+	+------------.oooO--(_)--Oooo.----------+
+	|                                       |
+	|                     Music: Beni Dhomi |
+	| Andante non troppo                    |
+	|                                       |
+	|   |___|)_________|___________         |
+	|   |___/___|______|____                |
+	|   |__/|___|-.__,-.________            |
+	|   |_/(|,\_|/___'-'______              |
+	|   |_\_|_/__________                   |
+	|      |                                |
+	|    (_|       .oooO                    |
+	|              (   )   Oooo.            |
+	+---------------\ (----(   )------------+
+	                 \_)    ) /
+	                       (_/
+------------------------------------------------------------
+## Frontend: Ga naar http://localhost:8080
+Daar zal de homepage de tekst tonen: "Welkom TechLab QA-ers || Dit is een Spring Boot Frontend app-je"
+
+## Backend: In de terminal doe een:
+curl -X GET http://localhost:8080/greet
+Response zou moeten zijn: "Hallo TechLab QA-ers!"
+============================================================
+                ]]>
+              </echo>
+            </target>
+          </configuration>
+        </execution>
+      </executions>
+    </plugin>
+
 		</plugins>
+
 	</build>
 
 </project>
+
